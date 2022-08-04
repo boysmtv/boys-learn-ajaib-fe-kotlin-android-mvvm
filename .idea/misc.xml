@@ -6,6 +6,9 @@
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.2925" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable-anydpi/ic_email.xml" value="0.1445" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable-anydpi/ic_followers.xml" value="0.1445" />
+        <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable-anydpi/ic_location.xml" value="0.1" />
+        <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable-anydpi/ic_search.xml" value="0.1" />
+        <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable-anydpi/ic_star.xml" value="0.1" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1445" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable/image_circle.xml" value="0.482" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/drawable/image_steve.xml" value="0.482" />
@@ -15,6 +18,9 @@
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/layout/activity_search_list_item.xml" value="0.33" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/layout/activity_users.xml" value="0.25" />
         <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/layout/activity_users_list_item.xml" value="0.5" />
+        <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/mipmap-anydpi-v26/ic_search.xml" value="0.1" />
+        <entry key="..\:/Boys/Rnd/Test/Ajaib/app/src/main/res/mipmap-anydpi-v26/ic_search_round.xml" value="0.1" />
       </map>
     </option>
   </component>
