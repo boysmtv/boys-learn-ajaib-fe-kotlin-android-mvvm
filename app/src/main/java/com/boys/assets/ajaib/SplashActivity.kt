@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         setupScreen()
     }
 
-    private fun setupScreen(){
+    fun setupScreen(){
         val background: Thread = object : Thread() {
             override fun run() {
                 try {
