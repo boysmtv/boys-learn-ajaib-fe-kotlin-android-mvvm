@@ -64,7 +64,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_users_user"
+                            android:id="@+id/tv_users_login"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -96,14 +96,14 @@
                                 android:background="@drawable/ic_followers" />
 
                             <TextView
-                                android:id="@+id/tv_users_duration"
+                                android:id="@+id/tv_users_followers"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="8dp"
                                 android:gravity="center"
                                 android:text="12K"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_10dp"
+                                android:textSize="12dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -112,7 +112,7 @@
                                 android:layout_marginStart="4dp"
                                 android:gravity="center"
                                 android:text="Followers  ~"
-                                android:textSize="@dimen/_10dp" />
+                                android:textSize="12dp" />
 
                             <TextView
                                 android:id="@+id/tv_users_following"
@@ -122,7 +122,7 @@
                                 android:gravity="center_horizontal"
                                 android:text="120"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_10dp"
+                                android:textSize="12dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -131,7 +131,7 @@
                                 android:layout_marginStart="4dp"
                                 android:gravity="center_horizontal"
                                 android:text="Following"
-                                android:textSize="@dimen/_10dp" />
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 
@@ -148,12 +148,13 @@
                                 android:background="@drawable/ic_location" />
 
                             <TextView
+                                android:id="@+id/tv_users_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="8dp"
                                 android:gravity="center"
                                 android:text="Taipei, Taiwan"
-                                android:textSize="@dimen/_10dp" />
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 
@@ -170,12 +171,13 @@
                                 android:background="@drawable/ic_email" />
 
                             <TextView
+                                android:id="@+id/tv_users_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="8dp"
                                 android:gravity="center"
                                 android:text="wangshi@mihoyo.com"
-                                android:textSize="@dimen/_10dp" />
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 

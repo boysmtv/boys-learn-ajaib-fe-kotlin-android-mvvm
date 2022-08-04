@@ -1,119 +1,111 @@
 package com.boys.assets.ajaib.activity.users.presentation
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.boys.assets.ajaib.activity.search.vm.SearchViewModel
 import com.boys.assets.ajaib.activity.users.model.UsersModel
-import com.boys.assets.ajaib.databinding.ActivitySearchBinding
+import com.boys.assets.ajaib.activity.users.vm.UsersViewModel
+import com.boys.assets.ajaib.databinding.ActivityUsersBinding
 import com.boys.assets.ajaib.helper.InterfaceDialog
 import com.boys.assets.ajaib.utils.LogUtil
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
-import kotlin.collections.ArrayList
 
 class UsersActivity : AppCompatActivity() {
 
     private val TAG = this::class.java.simpleName
     private val thisContext = this@UsersActivity
 
-    private lateinit var binding            : ActivitySearchBinding
+    private lateinit var binding            : ActivityUsersBinding
     private lateinit var interfaceDialog    : InterfaceDialog
 
-    private lateinit var usersAdapter       : UsersAdapter
+    private lateinit var reposAdapter       : ReposAdapter
     private lateinit var usersModel         : UsersModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding             = ActivitySearchBinding.inflate(layoutInflater)
+        binding             = ActivityUsersBinding.inflate(layoutInflater)
 
         interfaceDialog     = InterfaceDialog(thisContext)
-        usersAdapter        = UsersAdapter()
+        reposAdapter        = ReposAdapter()
         usersModel          = UsersModel()
 
         setContentView(binding.root)
         supportActionBar!!.hide()
 
-        val VM by viewModel<SearchViewModel>()
+        val VM by viewModel<UsersViewModel>()
 
-        setAddressVM(VM, binding, usersAdapter)
-        setRequest(VM, binding, usersAdapter)
+        getIntentExtra()
+        setAddressVM(VM, binding, reposAdapter)
+        setRequest(VM, binding, reposAdapter)
     }
 
     /**
      * set view model
      */
     private fun setAddressVM(
-        VM: SearchViewModel,
-        binding: ActivitySearchBinding,
-        usersAdapter: UsersAdapter
+        VM: UsersViewModel,
+        binding: ActivityUsersBinding,
+        reposAdapter: ReposAdapter
     ) {
         with(VM){
-            onSuccess.observe(thisContext) {
-                usersAdapter.provided(it, thisContext, interfaceDialog)
-                addressSearchFunction(it, usersAdapter)
+            onSuccessUsers.observe(thisContext) {
+                setProfile(it, binding, VM)
             }
-            onError.observe(thisContext) {
-
+            onErrorUsers.observe(thisContext) {
+                val confirmDialog = interfaceDialog.showDialogConfirmWarning("Warning!", "Failed get profile")
+                confirmDialog.setConfirmClickListener {
+                    confirmDialog.dismiss()
+                }
+                confirmDialog.show()
+            }
+            onSuccessRepo.observe(thisContext) {
+                reposAdapter.provided(it, thisContext, interfaceDialog)
+            }
+            onErrorRepo.observe(thisContext) {
+                val confirmDialog = interfaceDialog.showDialogConfirmWarning("Warning!", "Failed get repos")
+                confirmDialog.setConfirmClickListener {
+                    confirmDialog.dismiss()
+                }
+                confirmDialog.show()
             }
         }
     }
 
+    private fun setProfile(model: UsersModel, binding: ActivityUsersBinding, VM: UsersViewModel) {
+        interfaceDialog.dismisDialogLoading()
+
+        binding.tvUsersName.text = model.name
+        binding.tvUsersLogin.text = "@${model.login}"
+        binding.tvUsersFollowers.text = model.followers.toString()
+        binding.tvUsersFollowing.text = model.following.toString()
+        binding.tvUsersCompany.text = model.company ?: "This is default cause the field is null"
+        binding.tvUsersLocation.text = model.location ?: "This is default cause the field is null"
+        binding.tvUsersEmail.text = model.email ?: "This is default cause the field is null"
+        Glide.with(binding.root).load(model.avatar_url).into(binding.icPhoto)
+
+        binding.rvUsers.adapter = reposAdapter
+        interfaceDialog.showDialogLoading("Loading ...")
+
+        VM.getRepo(usersModel.login)
+    }
+
     private fun setRequest(
-        VM: SearchViewModel,
-        binding: ActivitySearchBinding,
-        usersAdapter: UsersAdapter
+        VM: UsersViewModel,
+        binding: ActivityUsersBinding,
+        reposAdapter: ReposAdapter
     ) {
         // set loading on ui
         interfaceDialog.showDialogLoading("Loading ...")
 
-        binding.rvSearch.adapter = usersAdapter
-        VM.doIt()
+        VM.getUser(usersModel.login)
     }
 
-    private fun addressSearchFunction(
-        searchRespModel: ArrayList<UsersModel>,
-        usersAdapter: UsersAdapter
-    ) {
-        binding.etSearchName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {}
+    private fun getIntentExtra(){
+        val intent = intent
+        usersModel.login = intent.getStringExtra("login")
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                filter(searchRespModel, usersAdapter, s.toString())
-            }
-        })
+        LogUtil.e(TAG, "model: ${usersModel.login}")
     }
-
-    /**
-     * set filter for search bank from local list (after get data)
-     */
-    private fun filter(
-        listModel: ArrayList<UsersModel>,
-        usersAdapter: UsersAdapter,
-        text: String
-    ) {
-        val filteredList: ArrayList<UsersModel> = ArrayList()
-        for (item in listModel) {
-            if (item.login!!.toLowerCase().contains(text.lowercase(Locale.getDefault()))) {
-                filteredList.add(item)
-            }
-        }
-        usersAdapter.provided(filteredList, this, interfaceDialog)
-    }
-
-
-    override fun onItemClick(v: View?, position: Int, searchRespModel: UsersModel) {
-        LogUtil.e("onItemClick", "Value: " + Gson().toJson(searchRespModel))
-    }
-
 }

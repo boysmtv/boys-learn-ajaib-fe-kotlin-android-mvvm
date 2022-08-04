@@ -1,5 +1,6 @@
 package com.boys.assets.ajaib.activity.search.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.boys.assets.ajaib.activity.search.model.SearchModel
 import com.boys.assets.ajaib.activity.search.vm.SearchViewModel
+import com.boys.assets.ajaib.activity.users.presentation.UsersActivity
 import com.boys.assets.ajaib.databinding.ActivitySearchBinding
 import com.boys.assets.ajaib.helper.InterfaceDialog
 import com.boys.assets.ajaib.utils.LogUtil
@@ -113,7 +115,9 @@ class SearchActivity : AppCompatActivity(), SearchOnClickListener<SearchModel> {
 
 
     override fun onItemClick(v: View?, position: Int, searchRespModel: SearchModel) {
-        LogUtil.e("onItemClick", "Value: " + Gson().toJson(searchRespModel))
+        val intent = Intent(thisContext, UsersActivity::class.java)
+        intent.putExtra("login", searchRespModel.login)
+        startActivity(intent)
     }
 
 }

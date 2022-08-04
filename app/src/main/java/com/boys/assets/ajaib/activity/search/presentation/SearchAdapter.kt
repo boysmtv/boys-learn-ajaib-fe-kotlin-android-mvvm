@@ -51,7 +51,6 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.AddressHolder>() {
 
             Glide.with(thisBinding.root).load(model.avatar_url).into(thisBinding.icPhoto)
 
-
             // set on click listener
             thisBinding.layoutContent.setOnClickListener { view ->
                 listener.onItemClick(
